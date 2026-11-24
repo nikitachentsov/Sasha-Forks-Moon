@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#060A10" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Forks Moon" />
+  <title>Forks Moon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-void: #060A10;
+      --bg-card: rgba(12, 20, 32, 0.78);
+      --bg-elevated: rgba(255, 255, 255, 0.06);
+      --border-subtle: rgba(205, 222, 242, 0.14);
+      --border-accent: rgba(154, 178, 206, 0.36);
+      --border-crimson: rgba(196, 36, 58, 0.48);
+      --text-primary: #F4F7FA;
+      --text-secondary: #B2C2D6;
+      --text-muted: #7688A0;
+      --accent-primary: #9AB2CE;
+      --accent-primary-soft: rgba(154, 178, 206, 0.18);
+      --accent-crimson: #C4243A;
+      --accent-crimson-soft: rgba(196, 36, 58, 0.22);
+      --accent-gold: #D8A95E;
+      --accent-gold-soft: rgba(216, 169, 94, 0.18);
+      --accent-pine: #439978;
+      --accent-pine-soft: rgba(67, 153, 120, 0.2);
+      --font-display: 'Cinzel', Georgia, serif;
+      --font-quote: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --nav-base-height: 60px;
+      --nav-total-height: calc(var(--nav-base-height) + var(--safe-bottom));
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background-color: var(--bg-void);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      line-height: 1.45;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      padding-bottom: calc(var(--nav-total-height) + 24px);
+    }
+
+    .forks-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .forks-bg-photo {
+      position: absolute;
+      inset: -12px;
+      background-image: url("https://www.themandagies.com/wp-content/uploads/2022/03/Twilight-Tour-In-Forks-Washington-The-Mandagies-PNW-scaled.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: saturate(0.72) contrast(1.06) brightness(0.42);
+      transform: scale(1.03);
+      transition: opacity 0.35s ease;
+    }
+
+    .forks-bg-photo.secondary {
+      background-image: url("https://redbarkshop.com/cdn/shop/products/redbark_IMG_0454_800x533.jpg?v=1685382817");
+      opacity: 0.3;
+      mix-blend-mode: screen;
+      background-position: center bottom;
+      animation: slowPan 36s ease-in-out infinite alternate;
+    }
+
+    @keyframes slowPan {
+      0% { transform: scale(1.04) translateX(-1.5%); }
+      100% { transform: scale(1.09) translateX(1.5%); }
+    }
+
+    .forks-bg-scrim {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(6, 10, 16, 0.72) 0%, rgba(8, 14, 24, 0.58) 45%, rgba(5, 9, 15, 0.88) 100%),
+        radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.05), transparent 60%);
+    }
+
+    .app-shell {
+      position: relative;
+      z-index: 1;
+      max-width: 430px;
+      margin: 0 auto;
+      padding: calc(var(--safe-top) + 12px) 16px 20px;
+    }
+
+    .top-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .brand-block .eyebrow {
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+    }
+
+    .brand-block h1 {
+      margin: 2px 0 0;
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+    }
+
+    .quote-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .quote-text {
+      font-family: var(--font-quote);
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.32;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      font-size: 15px;
+      transition: transform 0.14s ease, background 0.2s ease, color 0.2s ease;
+    }
+
+    .icon-btn:active {
+      transform: scale(0.92);
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 16px;
+      margin-bottom: 14px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.42);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin: 2px 0 0;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .badge-crimson {
+      background: var(--accent-crimson-soft);
+      border-color: var(--border-crimson);
+      color: #FF8F9F;
+    }
+
+    .badge-gold {
+      background: var(--accent-gold-soft);
+      border-color: rgba(216, 169, 94, 0.42);
+      color: #F2CC85;
+    }
+
+    .badge-moon {
+      background: var(--accent-primary-soft);
+      border-color: var(--border-accent);
+      color: var(--text-primary);
+    }
+
+    .badge-pine {
+      background: var(--accent-pine-soft);
+      border-color: rgba(67, 153, 120, 0.4);
+      color: #84DEC0;
+    }
+
+    .ring-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 4px 0 2px;
+    }
+
+    .ring-wrap {
+      position: relative;
+      width: 216px;
+      height: 216px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 4px 0 12px;
+    }
+
+    .ring-svg {
+      width: 216px;
+      height: 216px;
+      transform: rotate(-90deg);
+    }
+
+    .ring-center {
+      position: absolute;
+      inset: 26px;
+      border-radius: 50%;
+      background: radial-gradient(circle at top, rgba(22, 35, 54, 0.92), rgba(7, 13, 22, 0.96));
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .ring-day-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .ring-day-num {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.05;
+      margin: 2px 0;
+      color: var(--text-primary);
+    }
+
+    .ring-phase-name {
+      font-family: var(--font-quote);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--accent-primary);
+      line-height: 1.15;
+    }
+
+    .ring-sub {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .week-strip {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .week-day {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 2px;
+      border-radius: var(--radius-md);
+      background: var(--bg-elevated);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+
+    .week-day.is-selected {
+      border-color: var(--accent-primary);
+      background: var(--accent-primary-soft);
+    }
+
+    .week-day.is-today {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.24);
+    }
+
+    .week-day-name {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .week-day-num {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .week-dots {
+      display: flex;
+      gap: 3px;
+      margin-top: 5px;
+      min-height: 6px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+    }
+
+    .dot-period { background: var(--accent-crimson); }
+    .dot-fertile { background: var(--accent-pine); }
+    .dot-intimacy { background: #FF637D; }
+
+    .chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.14s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chip.active {
+      background: var(--accent-primary-soft);
+      border-color: var(--accent-primary);
+      color: var(--text-primary);
+    }
+
+    .chip.active-crimson {
+      background: var(--accent-crimson-soft);
+      border-color: var(--accent-crimson);
+      color: #FFAAB7;
+    }
+
+    .intimacy-box {
+      background: linear-gradient(145deg, rgba(196, 36, 58, 0.14), rgba(10, 18, 29, 0.88));
+      border: 1px solid var(--border-crimson);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+    }
+
+    .counter-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .counter-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .step-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text-primary);
+      font-size: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.12s ease;
+    }
+
+    .step-btn:active {
+      transform: scale(0.92);
+    }
+
+    .step-btn.plus {
+      background: var(--accent-crimson-soft);
+      border-color: var(--border-crimson);
+      color: #FF9BA9;
+    }
+
+    .count-readout {
+      min-width: 72px;
+      text-align: center;
+    }
+
+    .count-num {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: #FF8E9F;
+      line-height: 1.1;
+    }
+
+    .count-caption {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .warning-banner {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      background: rgba(216, 169, 94, 0.15);
+      border: 1px solid rgba(216, 169, 94, 0.42);
+      color: #F8E3B9;
+      font-size: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .clinical-box {
+      background: rgba(154, 178, 206, 0.09);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      padding: 13px 14px;
+      margin-bottom: 12px;
+    }
+
+    .clinical-item {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 12.5px;
+      color: var(--text-primary);
+    }
+
+    .clinical-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .clinical-label {
+      font-weight: 600;
+      color: var(--accent-primary);
+      display: block;
+      margin-bottom: 2px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .disclaimer-note {
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      font-size: 11.5px;
+      color: var(--text-secondary);
+    }
+
+    .qa-answer-box {
+      background: rgba(10, 18, 29, 0.9);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      margin-top: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-primary);
+    }
+
+    .qa-answer-title {
+      font-family: var(--font-display);
+      font-size: 12px;
+      color: var(--accent-gold);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .water-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 6px;
+    }
+
+    .cup-btn {
+      height: 40px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+
+    .cup-btn.filled {
+      background: var(--accent-primary-soft);
+      border-color: var(--border-accent);
+      color: var(--accent-primary);
+    }
+
+    textarea, input[type="date"], input[type="text"] {
+      width: 100%;
+      background: rgba(6, 11, 18, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 16px;
+      padding: 10px 12px;
+      outline: none;
+    }
+
+    textarea:focus, input[type="date"]:focus, input[type="text"]:focus {
+      border-color: var(--accent-primary);
+    }
+
+    textarea {
+      min-height: 76px;
+      resize: vertical;
+    }
+
+    input[type="range"].forks-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 28px;
+      background: transparent;
+      cursor: pointer;
+      margin: 4px 0 0;
+    }
+
+    input[type="range"].forks-slider::-webkit-slider-runnable-track {
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(196, 36, 58, 0.55), var(--accent-primary));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    input[type="range"].forks-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #F4F7FA;
+      border: 3px solid var(--accent-primary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55);
+      margin-top: -9px;
+      transition: transform 0.12s ease, border-color 0.15s ease;
+    }
+
+    input[type="range"].forks-slider:active::-webkit-slider-thumb {
+      transform: scale(1.12);
+      border-color: var(--accent-gold);
+    }
+
+    input[type="range"].forks-slider::-moz-range-track {
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(196, 36, 58, 0.55), var(--accent-primary));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    input[type="range"].forks-slider::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #F4F7FA;
+      border: 3px solid var(--accent-primary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55);
+      cursor: pointer;
+    }
+
+    .slider-block {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .slider-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .slider-value-pill {
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--accent-primary-soft);
+      border: 1px solid var(--border-accent);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .past-cycles-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .past-cycle-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      font-size: 13px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      min-height: 44px;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-accent);
+      background: linear-gradient(135deg, var(--accent-primary-soft), rgba(196, 36, 58, 0.22));
+      color: var(--text-primary);
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      min-height: 38px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-danger {
+      border-color: var(--border-crimson);
+      background: var(--accent-crimson-soft);
+      color: #FF9BA9;
+    }
+
+    .cal-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .cal-month-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-transform: capitalize;
+    }
+
+    .cal-weekdays, .cal-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      text-align: center;
+    }
+
+    .cal-weekday {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding-bottom: 6px;
+    }
+
+    .cal-cell {
+      position: relative;
+      min-height: 46px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 4px 2px;
+      transition: all 0.12s ease;
+    }
+
+    .cal-cell.empty {
+      background: transparent;
+      cursor: default;
+    }
+
+    .cal-cell.is-period {
+      background: rgba(196, 36, 58, 0.24);
+      border-color: rgba(196, 36, 58, 0.48);
+    }
+
+    .cal-cell.is-fertile {
+      background: rgba(67, 153, 120, 0.2);
+      border-color: rgba(67, 153, 120, 0.38);
+    }
+
+    .cal-cell.is-ovulation {
+      box-shadow: inset 0 0 0 1.5px var(--accent-gold);
+    }
+
+    .cal-cell.is-selected {
+      border-color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    .cal-day-num {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .cal-heart {
+      font-size: 10px;
+      line-height: 1.1;
+      color: #FF758C;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .legend-swatch {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .stat-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-top: 4px;
+    }
+
+    .bar-row {
+      margin-bottom: 10px;
+    }
+
+    .bar-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .bar-track {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-crimson), var(--accent-primary));
+    }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .setting-row:last-child {
+      border-bottom: none;
+    }
+
+    .setting-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .setting-desc {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .onboarding-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      background: rgba(4, 8, 13, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--safe-top) + 16px) 16px calc(var(--safe-bottom) + 16px);
+      overflow-y: auto;
+    }
+
+    .onboarding-card {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(13, 22, 36, 0.96);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-xl);
+      padding: 20px 18px;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.65);
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      min-height: var(--nav-total-height);
+      background: rgba(7, 13, 22, 0.9);
+      border-top: 1px solid var(--border-subtle);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      padding: 4px 4px var(--safe-bottom);
+      z-index: 20;
+    }
+
+    .nav-btn {
+      flex: 1;
+      max-width: 86px;
+      height: var(--nav-base-height);
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      cursor: pointer;
+      border-radius: var(--radius-md);
+      transition: color 0.14s ease, background 0.14s ease;
+    }
+
+    .nav-btn.active {
+      color: var(--accent-primary);
+      background: var(--accent-primary-soft);
+    }
+
+    .nav-icon {
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .nav-label {
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(var(--nav-total-height) + 14px);
+      transform: translateX(-50%) translateY(16px);
+      background: rgba(15, 25, 40, 0.96);
+      border: 1px solid var(--border-accent);
+      color: var(--text-primary);
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 50;
+      white-space: nowrap;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="forks-bg" aria-hidden="true">
+    <div id="forksBgPrimary" class="forks-bg-photo"></div>
+    <div id="forksBgSecondary" class="forks-bg-photo secondary"></div>
+    <div class="forks-bg-scrim"></div>
+  </div>
+
+  <div id="onboardingModal" class="onboarding-overlay hidden">
+    <div class="onboarding-card">
+      <div class="brand-block" style="margin-bottom: 12px;">
+        <div class="eyebrow">Forks, Washington · Начало работы</div>
+        <h2 class="card-title" style="font-size: 16px; margin-top: 4px;">Прошлые циклы</h2>
+        <p class="card-subtitle">Укажите даты начала прошлых циклов — длина цикла подстроится автоматически</p>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+        <input id="onboardDateInput" type="date" />
+        <button id="onboardAddDateBtn" class="btn-secondary" type="button" style="white-space: nowrap;">+ Дата</button>
+      </div>
+
+      <div id="onboardDatesList" class="past-cycles-list"></div>
+
+      <div class="slider-block" style="border-bottom: none; padding-top: 8px;">
+        <div class="slider-header">
+          <span class="setting-title">Длительность менструации</span>
+          <span id="onboardPeriodVal" class="slider-value-pill">5 дн.</span>
+        </div>
+        <input id="onboardPeriodSlider" class="forks-slider" type="range" min="2" max="10" value="5" />
+      </div>
+
+      <div style="margin-top: 14px;">
+        <button id="finishOnboardingBtn" class="btn-primary" type="button">Начать отслеживание</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-shell">
+    <header class="top-header">
+      <div class="brand-block">
+        <div class="eyebrow">Forks, Washington · Хроники цикла</div>
+        <h1>Forks Moon</h1>
+      </div>
+      <span id="headerCycleChip" class="badge badge-moon">День 1 · 28 дн.</span>
+    </header>
+
+    <section class="quote-banner">
+      <p id="quoteText" class="quote-text">«О чём ты думаешь?» — «О том, как легко потеряться в тумане Форкса.»</p>
+      <button id="nextQuoteBtn" class="icon-btn" title="Новая цитата" aria-label="Новая цитата">↻</button>
+    </section>
+
+    <main id="tab-today">
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title" id="selectedDateHeading">Сегодня</h2>
+            <p class="card-subtitle" id="selectedDateSub"></p>
+          </div>
+          <span id="phaseBadge" class="badge badge-gold">Фаза</span>
+        </div>
+
+        <div class="ring-section">
+          <div class="ring-wrap">
+            <svg class="ring-svg" viewBox="0 0 220 220">
+              <circle cx="110" cy="110" r="94" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="14" />
+              <circle id="ringPeriodArc" cx="110" cy="110" r="94" fill="none" stroke="#C4243A" stroke-width="14" stroke-linecap="round" />
+              <circle id="ringProgressArc" cx="110" cy="110" r="94" fill="none" stroke="#9AB2CE" stroke-width="14" stroke-linecap="round" />
+            </svg>
+            <div class="ring-center">
+              <div class="ring-day-label">День цикла</div>
+              <div id="ringDayNum" class="ring-day-num">1</div>
+              <div id="ringPhaseName" class="ring-phase-name">Фолликулярная</div>
+              <div id="ringFertilityHint" class="ring-sub">Шанс зачатия: низкий</div>
+            </div>
+          </div>
+
+          <p id="phaseAdvice" class="card-subtitle" style="max-width: 340px;"></p>
+        </div>
+
+        <div id="weekStrip" class="week-strip"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Близость</h2>
+            <p class="card-subtitle">Отметка несколько раз за выбранный день</p>
+          </div>
+          <span id="intimacyDayBadge" class="badge badge-crimson">0 раз</span>
+        </div>
+
+        <div class="intimacy-box">
+          <div class="counter-row">
+            <div>
+              <div style="font-size: 13px; font-weight: 600;">Количество отметок за день</div>
+              <div id="intimacySummaryText" class="card-subtitle">Записей за день пока нет</div>
+            </div>
+            <div class="counter-controls">
+              <button id="intimacyMinusBtn" class="step-btn" type="button" aria-label="Уменьшить">−</button>
+              <div class="count-readout">
+                <div id="intimacyCountNum" class="count-num">0</div>
+                <div class="count-caption">раз</div>
+              </div>
+              <button id="intimacyPlusBtn" class="step-btn plus" type="button" aria-label="Добавить">+</button>
+            </div>
+          </div>
+
+          <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">Теги близости:</div>
+          <div id="intimacyTagsContainer" class="chips-grid"></div>
+
+          <div id="fertileWarningBox" class="warning-banner hidden">
+            <span>🌙</span>
+            <span>Фертильное окно или овуляция — вероятность зачатия выше обычного.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Состояние и настроения</h2>
+            <p class="card-subtitle">Отметки за выбранный день</p>
+          </div>
+        </div>
+
+        <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Настроение</div>
+        <div id="moodsContainer" class="chips-grid" style="margin-bottom: 14px;"></div>
+
+        <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Симптомы и выделения</div>
+        <div id="symptomsContainer" class="chips-grid"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Вода и заметка</h2>
+            <p class="card-subtitle" id="waterLabel">0 из 8 стаканов</p>
+          </div>
+        </div>
+        <div id="waterCupsContainer" class="water-grid" style="margin-bottom: 16px;"></div>
+
+        <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 6px;">Заметка за день</div>
+        <textarea id="dayNoteInput" placeholder="Короткая заметка о самочувствии или дне..."></textarea>
+        <div style="margin-top: 10px;">
+          <button id="saveDayBtn" class="btn-primary" type="button">Сохранить запись дня</button>
+        </div>
+      </section>
+    </main>
+
+    <section id="tab-calendar" class="hidden">
+      <div class="card">
+        <div class="cal-controls">
+          <button id="prevMonthBtn" class="icon-btn" type="button">‹</button>
+          <div id="calMonthTitle" class="cal-month-title">Ноябрь 2026</div>
+          <button id="nextMonthBtn" class="icon-btn" type="button">›</button>
+        </div>
+
+        <div class="cal-weekdays">
+          <div class="cal-weekday">Пн</div>
+          <div class="cal-weekday">Вт</div>
+          <div class="cal-weekday">Ср</div>
+          <div class="cal-weekday">Чт</div>
+          <div class="cal-weekday">Пт</div>
+          <div class="cal-weekday">Сб</div>
+          <div class="cal-weekday">Вс</div>
+        </div>
+        <div id="calDaysGrid" class="cal-days"></div>
+
+        <div class="legend-row">
+          <span class="legend-item"><span class="legend-swatch" style="background: rgba(196,36,58,0.6);"></span>Менструация</span>
+          <span class="legend-item"><span class="legend-swatch" style="background: rgba(67,153,120,0.6);"></span>Фертильные дни</span>
+          <span class="legend-item"><span class="legend-swatch" style="border: 1.5px solid #D8A95E;"></span>Овуляция</span>
+          <span class="legend-item"><span style="color:#FF758C; font-weight:700;">♥ / ♥×2</span>Близость</span>
+        </div>
+      </div>
+
+      <div id="calDayEditorCard" class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title" id="calSelectedTitle">Выбранный день</h3>
+            <p class="card-subtitle" id="calSelectedMeta"></p>
+          </div>
+          <button id="togglePeriodBtn" class="btn-secondary" type="button">Отметить день</button>
+        </div>
+
+        <div class="intimacy-box" style="margin-bottom: 12px;">
+          <div class="counter-row" style="margin-bottom: 0;">
+            <div>
+              <div style="font-size: 13px; font-weight: 600;">Близость в этот день</div>
+              <div class="card-subtitle">Быстрая отметка в календаре</div>
+            </div>
+            <div class="counter-controls">
+              <button id="calIntimacyMinus" class="step-btn" type="button">−</button>
+              <div class="count-readout">
+                <div id="calIntimacyCount" class="count-num">0</div>
+                <div class="count-caption">раз</div>
+              </div>
+              <button id="calIntimacyPlus" class="step-btn plus" type="button">+</button>
+            </div>
+          </div>
+        </div>
+
+        <button id="jumpToDayBtn" class="btn-primary" type="button">Открыть полный дневник дня</button>
+      </div>
+    </section>
+
+    <section id="tab-analytics" class="hidden">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Гинекологический разбор</h2>
+            <p class="card-subtitle">Оценка ритма циклов, фаз и симптомов</p>
+          </div>
+        </div>
+
+        <div id="gynecologySummaryBox" class="clinical-box"></div>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-label">Автодлина цикла</div>
+            <div id="statCycleLen" class="stat-value">28 дн.</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Длительность выделений</div>
+            <div id="statPeriodLen" class="stat-value">5 дн.</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Близость за 30 дней</div>
+            <div id="statIntimacy30" class="stat-value">0 раз</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Макс. за один день</div>
+            <div id="statIntimacyMaxDay" class="stat-value">0 раз</div>
+          </div>
+        </div>
+
+        <h3 class="card-title" style="margin: 14px 0 10px;">Близость по фазам цикла (30 дн.)</h3>
+        <div id="phaseBreakdownBars"></div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title" style="margin-bottom: 10px;">Частые симптомы (30 дн.)</h3>
+        <div id="topSymptomsList"></div>
+        <div class="disclaimer-note" style="margin-top: 12px;">
+          Справочная оценка дневника цикла не заменяет очный осмотр акушера-гинеколога, УЗИ органов малого таза и лабораторные анализы.
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-doctor" class="hidden">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Вопрос гинекологу</h2>
+            <p class="card-subtitle">Выберите тему или напишите свой вопрос по женскому здоровью</p>
+          </div>
+        </div>
+
+        <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Частые вопросы</div>
+        <div id="presetQuestionsContainer" class="chips-grid" style="margin-bottom: 14px;"></div>
+
+        <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 6px;">Ваш вопрос</div>
+        <textarea id="doctorQuestionInput" placeholder="Например: почему цикл сдвинулся на несколько дней или когда стоит обратиться к врачу..."></textarea>
+        <div style="margin-top: 10px;">
+          <button id="askDoctorBtn" class="btn-primary" type="button">Получить разбор</button>
+        </div>
+
+        <div id="doctorAnswerBox" class="qa-answer-box">
+          <div id="doctorAnswerTitle" class="qa-answer-title">Разбор специалиста (справочно)</div>
+          <div id="doctorAnswerBody">Выберите готовый вопрос выше или напишите свой и нажмите «Получить разбор».</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-settings" class="hidden">
+      <div class="card">
+        <h2 class="card-title" style="margin-bottom: 4px;">Прошлые циклы и настройки</h2>
+        <p class="card-subtitle" style="margin-bottom: 12px;">Длина цикла рассчитывается автоматически по датам начала прошлых циклов</p>
+
+        <div style="display: flex; gap: 8px;">
+          <input id="settingsNewCycleDate" type="date" />
+          <button id="settingsAddCycleBtn" class="btn-secondary" type="button" style="white-space: nowrap;">+ Добавить</button>
+        </div>
+
+        <div id="settingsPastCyclesList" class="past-cycles-list"></div>
+
+        <div class="slider-block">
+          <div class="slider-header">
+            <div>
+              <div class="setting-title">Длительность выделений</div>
+              <div class="setting-desc">Переместите ползунок от 2 до 10 дней</div>
+            </div>
+            <span id="periodLengthVal" class="slider-value-pill">5 дн.</span>
+          </div>
+          <input id="periodLengthSlider" class="forks-slider" type="range" min="2" max="10" value="5" />
+        </div>
+
+        <div class="slider-block">
+          <div class="slider-header">
+            <div>
+              <div class="setting-title">Яркость фона Форкса</div>
+              <div class="setting-desc">Регулировка видимости лесных кадров</div>
+            </div>
+            <span id="bgDimVal" class="slider-value-pill">42%</span>
+          </div>
+          <input id="bgDimSlider" class="forks-slider" type="range" min="0" max="80" value="42" />
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-title">Мастер прошлых циклов</div>
+            <div class="setting-desc">Открыть окно первичного ввода дат</div>
+          </div>
+          <button id="reopenOnboardingBtn" class="btn-secondary" type="button">Открыть</button>
+        </div>
+
+        <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+          <button id="saveSettingsBtn" class="btn-primary" type="button" style="flex: 1;">Сохранить</button>
+          <button id="exportJsonBtn" class="btn-secondary" type="button">Экспорт JSON</button>
+          <button id="resetDemoBtn" class="btn-secondary btn-danger" type="button">Сброс</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-tab="today" type="button">
+      <span class="nav-icon">☾</span>
+      <span class="nav-label">Сегодня</span>
+    </button>
+    <button class="nav-btn" data-tab="calendar" type="button">
+      <span class="nav-icon">🗓</span>
+      <span class="nav-label">Календарь</span>
+    </button>
+    <button class="nav-btn" data-tab="analytics" type="button">
+      <span class="nav-icon">✦</span>
+      <span class="nav-label">Хроники</span>
+    </button>
+    <button class="nav-btn" data-tab="doctor" type="button">
+      <span class="nav-icon">🩺</span>
+      <span class="nav-label">Гинеколог</span>
+    </button>
+    <button class="nav-btn" data-tab="settings" type="button">
+      <span class="nav-icon">⚙</span>
+      <span class="nav-label">Настройки</span>
+    </button>
+  </nav>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const STORAGE_KEY = 'forks_moon_gyn_v4';
+
+    const QUOTES = [
+      '«О чём ты думаешь?» — «О том, как легко потеряться в тумане Форкса.»',
+      '«Время не лечит — оно просто меняет ритм шагов за лесом.»',
+      '«Когда сгущаются сумерки, яснее видно то, что действительно важно.»',
+      '«Каждая новая глава начинается тихо, но меняет весь пейзаж.»'
+    ];
+
+    const MOODS = [
+      'Спокойствие',
+      'Сосредоточенность',
+      'Лёгкость',
+      'Усталость',
+      'Энергия'
+    ];
+
+    const SYMPTOMS = [
+      'Сонливость',
+      'Лёгкий спазм',
+      'Тяга к сладкому',
+      'Прилив сил',
+      'Чувствительность',
+      'Скудные выделения',
+      'Умеренные выделения',
+      'Обильные выделения'
+    ];
+
+    const INTIMACY_TAGS = [
+      'С защитой',
+      'Без защиты',
+      'Спокойно',
+      'Вечерняя близость',
+      'Интенсивно'
+    ];
+
+    const PRESET_QUESTIONS = [
+      {
+        label: 'Задержка или сдвиг цикла',
+        question: 'Почему цикл может сдвинуться на несколько дней или наступить задержка?'
+      },
+      {
+        label: 'Овуляция и фертильность',
+        question: 'Как ориентироваться в фертильном окне и овуляции?'
+      },
+      {
+        label: 'Болезненные спазмы и ПМС',
+        question: 'Что помогает при тянущей боли и симптомах во второй фазе цикла?'
+      },
+      {
+        label: 'Когда обращаться к врачу',
+        question: 'Какие симптомы по женскому здоровью требуют планового или срочного визита к гинекологу?'
+      }
+    ];
+
+    function pad2(n) {
+      return String(n).padStart(2, '0');
+    }
+
+    function toDateKey(date) {
+      return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}`;
+    }
+
+    function parseDateKey(key) {
+      const [y, m, d] = key.split('-').map(Number);
+      return new Date(y, m - 1, d);
+    }
+
+    function addDaysKey(key, delta) {
+      const dt = parseDateKey(key);
+      dt.setDate(dt.getDate() + delta);
+      return toDateKey(dt);
+    }
+
+    function diffDays(keyA, keyB) {
+      const a = parseDateKey(keyA);
+      const b = parseDateKey(keyB);
+      const utcA = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+      const utcB = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+      return Math.round((utcA - utcB) / 86400000);
+    }
+
+    function getCycleIntervals(pastStarts) {
+      const sorted = [...new Set((pastStarts || []).filter(Boolean))].sort();
+      const intervals = [];
+      for (let i = 1; i < sorted.length; i++) {
+        const d = diffDays(sorted[i], sorted[i - 1]);
+        if (d >= 18 && d <= 55) {
+          intervals.push(d);
+        }
+      }
+      return intervals;
+    }
+
+    function computeAutoCycleLength(pastStarts) {
+      const intervals = getCycleIntervals(pastStarts);
+      if (intervals.length === 0) return 28;
+      const avg = Math.round(intervals.reduce((acc, v) => acc + v, 0) / intervals.length);
+      return Math.max(20, Math.min(45, avg));
+    }
+
+    function createInitialState() {
+      const todayKey = toDateKey(new Date());
+      return {
+        isFirstLaunch: true,
+        activeTab: 'today',
+        selectedDate: todayKey,
+        calMonthDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10),
+        quoteIndex: 0,
+        bgBrightness: 42,
+        settings: {
+          pastCycleStarts: [addDaysKey(todayKey, -38), addDaysKey(todayKey, -10)],
+          periodLength: 5
+        },
+        manualPeriodDays: {},
+        logs: {}
+      };
+    }
+
+    const app = {
+      state: null,
+      draftPastDates: [],
+
+      init() {
+        this.loadStorage();
+        this.applyBgBrightness();
+        this.renderPresetQuestions();
+        this.bindEvents();
+        this.renderAll();
+
+        if (this.state.isFirstLaunch) {
+          this.openOnboarding();
+        }
+      },
+
+      loadStorage() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            const fallback = createInitialState();
+            const pastStarts = Array.isArray(parsed.settings?.pastCycleStarts)
+              ? parsed.settings.pastCycleStarts
+              : fallback.settings.pastCycleStarts;
+
+            this.state = {
+              ...fallback,
+              ...parsed,
+              bgBrightness: Number.isFinite(parsed.bgBrightness) ? parsed.bgBrightness : fallback.bgBrightness,
+              settings: {
+                pastCycleStarts: pastStarts,
+                periodLength: Number.isFinite(parsed.settings?.periodLength)
+                  ? parsed.settings.periodLength
+                  : fallback.settings.periodLength
+              },
+              manualPeriodDays: parsed.manualPeriodDays || {},
+              logs: parsed.logs || {}
+            };
+            return;
+          }
+        } catch (err) {
+          console.error('Ошибка чтения хранилища:', err);
+        }
+        this.state = createInitialState();
+        this.saveStorage();
+      },
+
+      saveStorage() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state));
+        } catch (err) {
+          console.error('Ошибка записи хранилища:', err);
+        }
+      },
+
+      getEffectiveCycleLength() {
+        return computeAutoCycleLength(this.state.settings.pastCycleStarts);
+      },
+
+      getAnchorPeriodStart() {
+        const sorted = [...new Set((this.state.settings.pastCycleStarts || []).filter(Boolean))].sort();
+        if (sorted.length > 0) return sorted[sorted.length - 1];
+        return addDaysKey(toDateKey(new Date()), -10);
+      },
+
+      applyBgBrightness() {
+        const val = Math.max(0, Math.min(80, Number(this.state.bgBrightness) || 0));
+        const primary = document.getElementById('forksBgPrimary');
+        const secondary = document.getElementById('forksBgSecondary');
+        if (primary) {
+          primary.style.opacity = val === 0 ? '0' : '1';
+          primary.style.filter = `saturate(0.72) contrast(1.06) brightness(${(val / 100).toFixed(2)})`;
+        }
+        if (secondary) {
+          secondary.style.opacity = val === 0 ? '0' : '0.28';
+        }
+      },
+
+      openOnboarding() {
+        this.draftPastDates = [...(this.state.settings.pastCycleStarts || [])].sort();
+        const todayKey = toDateKey(new Date());
+        document.getElementById('onboardDateInput').value = todayKey;
+        document.getElementById('onboardPeriodSlider').value = this.state.settings.periodLength;
+        document.getElementById('onboardPeriodVal').textContent = `${this.state.settings.periodLength} дн.`;
+        this.renderOnboardingDates();
+        document.getElementById('onboardingModal').classList.remove('hidden');
+      },
+
+      renderOnboardingDates() {
+        const list = document.getElementById('onboardDatesList');
+        list.innerHTML = '';
+        const sorted = [...this.draftPastDates].sort();
+
+        if (sorted.length === 0) {
+          list.innerHTML = '<div class="card-subtitle">Добавьте хотя бы одну дату начала цикла.</div>';
+          return;
+        }
+
+        sorted.forEach((dKey) => {
+          const row = document.createElement('div');
+          row.className = 'past-cycle-item';
+          row.innerHTML = `
+            <span>${this.formatRussianDate(dKey)} (${dKey})</span>
+            <button type="button" class="btn-secondary btn-danger" style="min-height:30px;padding:4px 9px;">✕</button>
+          `;
+          row.querySelector('button').addEventListener('click', () => {
+            this.draftPastDates = this.draftPastDates.filter((x) => x !== dKey);
+            this.renderOnboardingDates();
+          });
+          list.appendChild(row);
+        });
+      },
+
+      showToast(msg) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.classList.add('show');
+        clearTimeout(this._toastTimer);
+        this._toastTimer = setTimeout(() => el.classList.remove('show'), 2100);
+      },
+
+      getDayLog(dateKey) {
+        const existing = this.state.logs[dateKey] || {};
+        return {
+          mood: existing.mood || '',
+          symptoms: Array.isArray(existing.symptoms) ? [...existing.symptoms] : [],
+          water: Number.isFinite(existing.water) ? existing.water : 0,
+          note: existing.note || '',
+          intimacyCount: Number.isFinite(existing.intimacyCount) ? Math.max(0, existing.intimacyCount) : 0,
+          intimacyTags: Array.isArray(existing.intimacyTags) ? [...existing.intimacyTags] : []
+        };
+      },
+
+      mutateDayLog(dateKey, updater, toastMessage = null) {
+        const current = this.getDayLog(dateKey);
+        const next = updater(current);
+        next.intimacyCount = Math.max(0, Math.min(20, Number(next.intimacyCount) || 0));
+        this.state.logs[dateKey] = next;
+        this.saveStorage();
+        this.renderAll();
+        if (toastMessage) {
+          this.showToast(toastMessage);
+        }
+      },
+
+      isPeriodDay(dateKey) {
+        if (this.state.manualPeriodDays[dateKey] === true) return true;
+        if (this.state.manualPeriodDays[dateKey] === false) return false;
+
+        const cycleLen = this.getEffectiveCycleLength();
+        const periodLen = Math.max(1, Number(this.state.settings.periodLength) || 5);
+        const anchor = this.getAnchorPeriodStart();
+        const delta = diffDays(dateKey, anchor);
+        const mod = ((delta % cycleLen) + cycleLen) % cycleLen;
+        return mod < periodLen;
+      },
+
+      getCycleInfo(dateKey) {
+        const cycleLen = this.getEffectiveCycleLength();
+        const periodLen = Math.max(1, Number(this.state.settings.periodLength) || 5);
+        const anchor = this.getAnchorPeriodStart();
+        const delta = diffDays(dateKey, anchor);
+        const cycleDay = (((delta % cycleLen) + cycleLen) % cycleLen) + 1;
+        const ovulationDay = Math.max(8, cycleLen - 14);
+        const fertileStart = Math.max(1, ovulationDay - 4);
+        const fertileEnd = Math.min(cycleLen, ovulationDay + 1);
+
+        const manualPeriod = this.isPeriodDay(dateKey);
+        const isOvulation = cycleDay === ovulationDay;
+        const isFertile = !manualPeriod && cycleDay >= fertileStart && cycleDay <= fertileEnd;
+
+        let phaseKey = 'luteal';
+        let phaseName = 'Лютеиновая фаза';
+        let badgeClass = 'badge-moon';
+        let fertilityHint = 'Шанс зачатия: низкий';
+        let advice = 'Спокойный ритм второй половины цикла: больше отдыха и ровного режима.';
+
+        if (manualPeriod) {
+          phaseKey = 'menstrual';
+          phaseName = 'Менструация';
+          badgeClass = 'badge-crimson';
+          fertilityHint = 'Шанс зачатия: очень низкий';
+          advice = 'Бережный режим, тепло и внимание к самочувствию.';
+        } else if (isOvulation) {
+          phaseKey = 'ovulation';
+          phaseName = 'Овуляция';
+          badgeClass = 'badge-gold';
+          fertilityHint = 'Пик фертильности';
+          advice = 'Пик фертильности и активности — учитывай это при планировании.';
+        } else if (isFertile) {
+          phaseKey = 'fertile';
+          phaseName = 'Фертильное окно';
+          badgeClass = 'badge-pine';
+          fertilityHint = 'Шанс зачатия: повышенный';
+          advice = 'Фертильное окно открыто; обычно уровень энергии выше среднего.';
+        } else if (cycleDay < fertileStart) {
+          phaseKey = 'follicular';
+          phaseName = 'Фолликулярная';
+          badgeClass = 'badge-moon';
+          fertilityHint = 'Шанс зачатия: низкий';
+          advice = 'Хорошее время для планов и постепенного наращивания нагрузки.';
+        }
+
+        return {
+          cycleDay,
+          cycleLen,
+          periodLen,
+          ovulationDay,
+          fertileStart,
+          fertileEnd,
+          isPeriod: manualPeriod,
+          isOvulation,
+          isFertile,
+          phaseKey,
+          phaseName,
+          badgeClass,
+          fertilityHint,
+          advice
+        };
+      },
+
+      formatRussianDate(dateKey) {
+        const dt = parseDateKey(dateKey);
+        return dt.toLocaleDateString('ru-RU', {
+          day: 'numeric',
+          month: 'long',
+          weekday: 'short'
+        });
+      },
+
+      switchTab(tabName) {
+        this.state.activeTab = tabName;
+        this.saveStorage();
+
+        ['today', 'calendar', 'analytics', 'doctor', 'settings'].forEach((t) => {
+          document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tabName);
+        });
+
+        document.querySelectorAll('.nav-btn').forEach((btn) => {
+          btn.classList.toggle('active', btn.dataset.tab === tabName);
+        });
+
+        if (tabName === 'analytics') {
+          this.renderAnalytics();
+        } else if (tabName === 'calendar') {
+          this.renderCalendar();
+        } else if (tabName === 'settings') {
+          this.renderSettings();
+        }
+      },
+
+      renderAll() {
+        this.applyBgBrightness();
+        this.renderQuote();
+        this.renderTodayTab();
+        this.renderCalendar();
+        this.renderAnalytics();
+        this.renderSettings();
+        this.switchTab(this.state.activeTab);
+      },
+
+      renderQuote() {
+        const idx = ((this.state.quoteIndex % QUOTES.length) + QUOTES.length) % QUOTES.length;
+        document.getElementById('quoteText').textContent = QUOTES[idx];
+      },
+
+      renderTodayTab() {
+        const key = this.state.selectedDate;
+        const todayKey = toDateKey(new Date());
+        const info = this.getCycleInfo(key);
+        const log = this.getDayLog(key);
+
+        document.getElementById('headerCycleChip').textContent = `День ${info.cycleDay} · ${info.cycleLen} дн.`;
+        document.getElementById('selectedDateHeading').textContent =
+          key === todayKey ? 'Сегодня' : this.formatRussianDate(key);
+        document.getElementById('selectedDateSub').textContent =
+          `${this.formatRussianDate(key)} · автоцикл ${info.cycleLen} дн.`;
+
+        const badge = document.getElementById('phaseBadge');
+        badge.className = `badge ${info.badgeClass}`;
+        badge.textContent = info.phaseName;
+
+        const r = 94;
+        const circumference = 2 * Math.PI * r;
+        const progressRatio = Math.min(1, Math.max(0.04, info.cycleDay / info.cycleLen));
+        const periodRatio = Math.min(1, info.periodLen / info.cycleLen);
+
+        const progressArc = document.getElementById('ringProgressArc');
+        const periodArc = document.getElementById('ringPeriodArc');
+
+        progressArc.setAttribute('stroke-dasharray', `${circumference}`);
+        progressArc.setAttribute('stroke-dashoffset', `${circumference * (1 - progressRatio)}`);
+
+        periodArc.setAttribute('stroke-dasharray', `${circumference * periodRatio} ${circumference}`);
+        periodArc.setAttribute('stroke-dashoffset', '0');
+
+        document.getElementById('ringDayNum').textContent = `${info.cycleDay}`;
+        document.getElementById('ringPhaseName').textContent = info.phaseName;
+        document.getElementById('ringFertilityHint').textContent = info.fertilityHint;
+        document.getElementById('phaseAdvice').textContent = info.advice;
+
+        this.renderWeekStrip(key, todayKey);
+        this.renderIntimacySection(key, log, info);
+        this.renderMoodsAndSymptoms(key, log);
+        this.renderWaterAndNote(log);
+      },
+
+      renderWeekStrip(selectedKey, todayKey) {
+        const strip = document.getElementById('weekStrip');
+        strip.innerHTML = '';
+        const base = parseDateKey(selectedKey);
+        const dow = (base.getDay() + 6) % 7;
+        const mondayKey = addDaysKey(selectedKey, -dow);
+        const labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+
+        for (let i = 0; i < 7; i++) {
+          const dKey = addDaysKey(mondayKey, i);
+          const dt = parseDateKey(dKey);
+          const dInfo = this.getCycleInfo(dKey);
+          const dLog = this.getDayLog(dKey);
+
+          const el = document.createElement('button');
+          el.type = 'button';
+          el.className = 'week-day';
+          if (dKey === selectedKey) el.classList.add('is-selected');
+          if (dKey === todayKey) el.classList.add('is-today');
+
+          let dotsHtml = '';
+          if (dInfo.isPeriod) dotsHtml += '<span class="dot dot-period"></span>';
+          if (dInfo.isFertile || dInfo.isOvulation) dotsHtml += '<span class="dot dot-fertile"></span>';
+          if (dLog.intimacyCount > 0) dotsHtml += '<span class="dot dot-intimacy"></span>';
+
+          el.innerHTML = `
+            <span class="week-day-name">${labels[i]}</span>
+            <span class="week-day-num">${dt.getDate()}</span>
+            <span class="week-dots">${dotsHtml}</span>
+          `;
+
+          el.addEventListener('click', () => {
+            this.state.selectedDate = dKey;
+            this.saveStorage();
+            this.renderTodayTab();
+          });
+
+          strip.appendChild(el);
+        }
+      },
+
+      renderIntimacySection(dateKey, log, info) {
+        const count = log.intimacyCount;
+        document.getElementById('intimacyCountNum').textContent = `${count}`;
+        document.getElementById('intimacyDayBadge').textContent =
+          count > 0 ? `♥ ×${count}` : '0 раз';
+        document.getElementById('intimacySummaryText').textContent =
+          count === 0
+            ? 'Записей за день пока нет'
+            : `Отмечено раз за день: ${count}`;
+
+        const tagsWrap = document.getElementById('intimacyTagsContainer');
+        tagsWrap.innerHTML = '';
+        INTIMACY_TAGS.forEach((tag) => {
+          const active = log.intimacyTags.includes(tag);
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `chip ${active ? 'active-crimson' : ''}`;
+          btn.textContent = tag;
+          btn.addEventListener('click', () => {
+            this.mutateDayLog(dateKey, (cur) => {
+              const has = cur.intimacyTags.includes(tag);
+              const nextTags = has
+                ? cur.intimacyTags.filter((t) => t !== tag)
+                : [...cur.intimacyTags, tag];
+              const nextCount = !has && cur.intimacyCount === 0 ? 1 : cur.intimacyCount;
+              return { ...cur, intimacyTags: nextTags, intimacyCount: nextCount };
+            }, 'Тег близости обновлён');
+          });
+          tagsWrap.appendChild(btn);
+        });
+
+        const warnBox = document.getElementById('fertileWarningBox');
+        warnBox.classList.toggle('hidden', !(info.isFertile || info.isOvulation));
+      },
+
+      renderMoodsAndSymptoms(dateKey, log) {
+        const moodsWrap = document.getElementById('moodsContainer');
+        moodsWrap.innerHTML = '';
+        MOODS.forEach((mood) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `chip ${log.mood === mood ? 'active' : ''}`;
+          btn.textContent = mood;
+          btn.addEventListener('click', () => {
+            this.mutateDayLog(dateKey, (cur) => ({
+              ...cur,
+              mood: cur.mood === mood ? '' : mood
+            }));
+          });
+          moodsWrap.appendChild(btn);
+        });
+
+        const symWrap = document.getElementById('symptomsContainer');
+        symWrap.innerHTML = '';
+        SYMPTOMS.forEach((sym) => {
+          const active = log.symptoms.includes(sym);
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `chip ${active ? 'active' : ''}`;
+          btn.textContent = sym;
+          btn.addEventListener('click', () => {
+            this.mutateDayLog(dateKey, (cur) => {
+              const exists = cur.symptoms.includes(sym);
+              return {
+                ...cur,
+                symptoms: exists
+                  ? cur.symptoms.filter((s) => s !== sym)
+                  : [...cur.symptoms, sym]
+              };
+            });
+          });
+          symWrap.appendChild(btn);
+        });
+      },
+
+      renderWaterAndNote(log) {
+        const cupsWrap = document.getElementById('waterCupsContainer');
+        cupsWrap.innerHTML = '';
+        document.getElementById('waterLabel').textContent = `${log.water} из 8 стаканов`;
+
+        for (let i = 1; i <= 8; i++) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `cup-btn ${i <= log.water ? 'filled' : ''}`;
+          btn.textContent = i <= log.water ? '💧' : '○';
+          btn.title = `${i} стаканов`;
+          btn.addEventListener('click', () => {
+            const nextVal = log.water === i ? i - 1 : i;
+            this.mutateDayLog(this.state.selectedDate, (cur) => ({ ...cur, water: nextVal }));
+          });
+          cupsWrap.appendChild(btn);
+        }
+
+        document.getElementById('dayNoteInput').value = log.note;
+      },
+
+      renderCalendar() {
+        const monthBase = parseDateKey(this.state.calMonthDate);
+        const year = monthBase.getFullYear();
+        const month = monthBase.getMonth();
+
+        const titleEl = document.getElementById('calMonthTitle');
+        const label = monthBase.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
+        titleEl.textContent = label.charAt(0).toUpperCase() + label.slice(1);
+
+        const firstDay = new Date(year, month, 1);
+        const startOffset = (firstDay.getDay() + 6) % 7;
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        const grid = document.getElementById('calDaysGrid');
+        grid.innerHTML = '';
+
+        for (let i = 0; i < startOffset; i++) {
+          const empty = document.createElement('div');
+          empty.className = 'cal-cell empty';
+          grid.appendChild(empty);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dKey = `${year}-${pad2(month + 1)}-${pad2(day)}`;
+          const info = this.getCycleInfo(dKey);
+          const log = this.getDayLog(dKey);
+
+          const cell = document.createElement('button');
+          cell.type = 'button';
+          cell.className = 'cal-cell';
+          if (info.isPeriod) cell.classList.add('is-period');
+          if (info.isFertile) cell.classList.add('is-fertile');
+          if (info.isOvulation) cell.classList.add('is-ovulation');
+          if (dKey === this.state.selectedDate) cell.classList.add('is-selected');
+
+          let heartHtml = '';
+          if (log.intimacyCount === 1) {
+            heartHtml = '<span class="cal-heart">♥</span>';
+          } else if (log.intimacyCount > 1) {
+            heartHtml = `<span class="cal-heart">♥×${log.intimacyCount}</span>`;
+          }
+
+          cell.innerHTML = `<span class="cal-day-num">${day}</span>${heartHtml}`;
+          cell.addEventListener('click', () => {
+            this.state.selectedDate = dKey;
+            this.saveStorage();
+            this.renderCalendar();
+          });
+
+          grid.appendChild(cell);
+        }
+
+        const selKey = this.state.selectedDate;
+        const selInfo = this.getCycleInfo(selKey);
+        const selLog = this.getDayLog(selKey);
+
+        document.getElementById('calSelectedTitle').textContent = this.formatRussianDate(selKey);
+        document.getElementById('calSelectedMeta').textContent =
+          `${selInfo.phaseName} · день ${selInfo.cycleDay} · близость: ${selLog.intimacyCount} раз`;
+        document.getElementById('calIntimacyCount').textContent = `${selLog.intimacyCount}`;
+        document.getElementById('togglePeriodBtn').textContent =
+          selInfo.isPeriod ? 'Снять отметку' : 'Отметить день';
+      },
+
+      buildGynecologyAssessment() {
+        const intervals = getCycleIntervals(this.state.settings.pastCycleStarts);
+        const autoLen = this.getEffectiveCycleLength();
+        const periodLen = Number(this.state.settings.periodLength) || 5;
+        const todayInfo = this.getCycleInfo(this.state.selectedDate);
+
+        let regularityText = 'Недостаточно интервалов для оценки колебаний — ориентир задан по базовой модели (28 дн.). Добавьте 2–3 прошлые даты начала цикла для точности.';
+        if (intervals.length >= 1) {
+          const minI = Math.min(...intervals);
+          const maxI = Math.max(...intervals);
+          const spread = maxI - minI;
+          const inNormalRange = autoLen >= 24 && autoLen <= 38;
+          if (spread <= 4 && inNormalRange) {
+            regularityText = `Ритм ровный (интервалы ${intervals.join(', ')} дн., разброс ${spread} дн., среднее ${autoLen} дн.) — укладывается в типичный взрослый диапазон 24–38 дней.`;
+          } else if (spread > 7) {
+            regularityText = `Отмечается заметный разброс интервалов (${minI}–${maxI} дн., разница ${spread} дн.). Колебания возможны при стрессе, смене режима сна/нагрузок или в подростковом/послеродовом периоде; при стойких отклонениях стоит обсудить с врачом.`;
+          } else {
+            regularityText = `Средняя длина цикла по истории составляет ${autoLen} дн. (интервалы: ${intervals.join(', ')} дн.). Важна индивидуальная стабильность от цикла к циклу.`;
+          }
+        }
+
+        let flowText = `Длительность менструации указана ${periodLen} дн. (обычно от 2 до 7–8 дней).`;
+        if (periodLen > 7) {
+          flowText = `Указана длительность выделений ${periodLen} дн. — если кровотечения регулярно длятся дольше 7–8 дней или требуют частой смены средств гигиены, полезно оценить уровень гемоглобина и ферритина у гинеколога.`;
+        } else if (periodLen < 3) {
+          flowText = `Указана короткая длительность выделений (${periodLen} дн.). Для части женщин это вариант нормы, но при резком уменьшении объёма стоит уточнить причину на приёме.`;
+        }
+
+        const phaseText = `Для выбранной даты (${todayInfo.phaseName}, день ${todayInfo.cycleDay}): ${todayInfo.fertilityHint}. Ориентировочное окно овуляции приходится примерно на ${todayInfo.ovulationDay}-й день цикла.`;
+
+        return { regularityText, flowText, phaseText };
+      },
+
+      renderAnalytics() {
+        const autoLen = this.getEffectiveCycleLength();
+        document.getElementById('statCycleLen').textContent = `${autoLen} дн.`;
+        document.getElementById('statPeriodLen').textContent = `${this.state.settings.periodLength} дн.`;
+
+        const assessment = this.buildGynecologyAssessment();
+        document.getElementById('gynecologySummaryBox').innerHTML = `
+          <div class="clinical-item">
+            <span class="clinical-label">Ритм и длина цикла</span>
+            ${assessment.regularityText}
+          </div>
+          <div class="clinical-item">
+            <span class="clinical-label">Менструация и кровопотеря</span>
+            ${assessment.flowText}
+          </div>
+          <div class="clinical-item">
+            <span class="clinical-label">Фаза и фертильность</span>
+            ${assessment.phaseText}
+          </div>
+        `;
+
+        const todayKey = toDateKey(new Date());
+        let total30 = 0;
+        let maxInDay = 0;
+
+        const phaseCounts = {
+          menstrual: 0,
+          follicular: 0,
+          fertile: 0,
+          ovulation: 0,
+          luteal: 0
+        };
+
+        const phaseLabels = {
+          menstrual: 'Менструация',
+          follicular: 'Фолликулярная',
+          fertile: 'Фертильное окно',
+          ovulation: 'Овуляция',
+          luteal: 'Лютеиновая фаза'
+        };
+
+        const symptomFreq = {};
+
+        for (let offset = 0; offset < 30; offset++) {
+          const dKey = addDaysKey(todayKey, -offset);
+          const log = this.getDayLog(dKey);
+          const info = this.getCycleInfo(dKey);
+
+          if (log.intimacyCount > 0) {
+            total30 += log.intimacyCount;
+            if (log.intimacyCount > maxInDay) maxInDay = log.intimacyCount;
+            phaseCounts[info.phaseKey] = (phaseCounts[info.phaseKey] || 0) + log.intimacyCount;
+          }
+
+          log.symptoms.forEach((s) => {
+            symptomFreq[s] = (symptomFreq[s] || 0) + 1;
+          });
+        }
+
+        document.getElementById('statIntimacy30').textContent = `${total30} раз`;
+        document.getElementById('statIntimacyMaxDay').textContent = `${maxInDay} раз`;
+
+        const barsContainer = document.getElementById('phaseBreakdownBars');
+        barsContainer.innerHTML = '';
+        const denom = Math.max(1, total30);
+
+        Object.keys(phaseLabels).forEach((pKey) => {
+          const val = phaseCounts[pKey] || 0;
+          const pct = Math.round((val / denom) * 100);
+          const row = document.createElement('div');
+          row.className = 'bar-row';
+          row.innerHTML = `
+            <div class="bar-meta">
+              <span>${phaseLabels[pKey]}</span>
+              <span>${val} раз (${pct}%)</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: ${pct}%;"></div>
+            </div>
+          `;
+          barsContainer.appendChild(row);
+        });
+
+        const symList = document.getElementById('topSymptomsList');
+        symList.innerHTML = '';
+        const sortedSym = Object.entries(symptomFreq).sort((a, b) => b[1] - a[1]);
+
+        if (sortedSym.length === 0) {
+          symList.innerHTML = '<div class="card-subtitle">Пока нет отмеченных симптомов за последние 30 дней.</div>';
+        } else {
+          sortedSym.slice(0, 5).forEach(([name, count]) => {
+            const item = document.createElement('div');
+            item.className = 'setting-row';
+            item.innerHTML = `
+              <span class="setting-title">${name}</span>
+              <span class="badge badge-moon">${count} дн.</span>
+            `;
+            symList.appendChild(item);
+          });
+        }
+      },
+
+      renderPresetQuestions() {
+        const container = document.getElementById('presetQuestionsContainer');
+        container.innerHTML = '';
+        PRESET_QUESTIONS.forEach((item) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'chip';
+          btn.textContent = item.label;
+          btn.addEventListener('click', () => {
+            document.getElementById('doctorQuestionInput').value = item.question;
+            this.answerDoctorQuestion(item.question);
+          });
+          container.appendChild(btn);
+        });
+      },
+
+      answerDoctorQuestion(rawText) {
+        const q = (rawText || '').trim();
+        const lower = q.toLowerCase();
+        const info = this.getCycleInfo(this.state.selectedDate);
+        const autoLen = this.getEffectiveCycleLength();
+
+        let reply = '';
+
+        if (!q) {
+          reply = 'Напишите ваш вопрос по циклу, симптомам или женскому здоровью, чтобы получить справочный разбор.';
+        } else if (lower.includes('задерж') || lower.includes('сдвиг') || lower.includes('цикл')) {
+          reply = `По текущим данным ваш расчётный цикл составляет около ${autoLen} дн., сейчас отмечен ${info.cycleDay}-й день (${info.phaseName}). Небольшие сдвиги на несколько дней могут быть связаны с овуляцией, стрессом, перелётами или изменением веса и сна. Если задержка превышает 7–10 дней при регулярном цикле, стоит выполнить тест на беременность и обратиться к гинекологу.`;
+        } else if (lower.includes('овуляц') || lower.includes('фертил') || lower.includes('зачат')) {
+          reply = `Овуляция обычно происходит примерно за 14 дней до начала следующей менструации (в вашей модели это ориентировочно ${info.ovulationDay}-й день цикла при длине ${autoLen} дн.). Наиболее фертильны дни овуляции и 4–5 дней до неё. Календарный расчёт приблизительный — для точной оценки используют тесты на ЛГ, УЗИ-мониторинг или наблюдение за цервикальной слизью.`;
+        } else if (lower.includes('боль') || lower.includes('спазм') || lower.includes('пмс') || lower.includes('груд')) {
+          reply = `Тянущие боли внизу живота и колебания настроения в лютеиновой фазе или в первые дни менструации связаны с колебаниями гормонов и простагландинов. Помогают умеренная активность, тепло на низ живота, полноценный сон и контроль стресса; если боль резко усиливается, требует приёма обезболивающих сверх обычного или мешает повседневной жизни, необходим осмотр врача.`;
+        } else if (lower.includes('врач') || lower.includes('визит') || lower.includes('кров') || lower.includes('выделен')) {
+          reply = `Планово проходить осмотр гинеколога рекомендуется раз в год (включая цитологию шейки матки по возрасту). Внепланово и срочно обратиться к врачу нужно при сильной боли внизу живота, обильных кровотечениях, кровянистых выделениях между менструациями или после близости, необычных выделениях с зудом или неприятным запахом, температуре или головокружении.`;
+        } else {
+          reply = `Вопрос учтён в контексте вашего цикла (расчётная длина ${autoLen} дн., сейчас ${info.cycleDay}-й день — «${info.phaseName}»). Оценить симптомы точно можно только на очном приёме с учётом анамнеза, осмотра и при необходимости анализов или УЗИ. Если появятся резкая боль, необычные выделения или кровотечение — обратитесь к врачу.`;
+        }
+
+        document.getElementById('doctorAnswerTitle').textContent = `Разбор по вопросу: ${q.slice(0, 68)}${q.length > 68 ? '…' : ''}`;
+        document.getElementById('doctorAnswerBody').textContent = reply;
+      },
+
+      renderSettings() {
+        const list = document.getElementById('settingsPastCyclesList');
+        list.innerHTML = '';
+        const sorted = [...new Set((this.state.settings.pastCycleStarts || []).filter(Boolean))].sort();
+
+        if (sorted.length === 0) {
+          list.innerHTML = '<div class="card-subtitle">Даты прошлых циклов не добавлены.</div>';
+        } else {
+          sorted.forEach((dKey) => {
+            const item = document.createElement('div');
+            item.className = 'past-cycle-item';
+            item.innerHTML = `
+              <span>${this.formatRussianDate(dKey)} (${dKey})</span>
+              <button type="button" class="btn-secondary btn-danger" style="min-height:30px;padding:4px 9px;">Удалить</button>
+            `;
+            item.querySelector('button').addEventListener('click', () => {
+              this.state.settings.pastCycleStarts = this.state.settings.pastCycleStarts.filter((x) => x !== dKey);
+              this.saveStorage();
+              this.renderAll();
+              this.showToast('Дата цикла удалена');
+            });
+            list.appendChild(item);
+          });
+        }
+
+        const pLen = this.state.settings.periodLength;
+        document.getElementById('periodLengthSlider').value = pLen;
+        document.getElementById('periodLengthVal').textContent = `${pLen} дн.`;
+
+        const dim = this.state.bgBrightness;
+        document.getElementById('bgDimSlider').value = dim;
+        document.getElementById('bgDimVal').textContent = `${dim}%`;
+      },
+
+      bindEvents() {
+        document.getElementById('onboardAddDateBtn').addEventListener('click', () => {
+          const val = document.getElementById('onboardDateInput').value;
+          if (!val) return;
+          if (!this.draftPastDates.includes(val)) {
+            this.draftPastDates.push(val);
+            this.draftPastDates.sort();
+            this.renderOnboardingDates();
+          }
+        });
+
+        document.getElementById('onboardPeriodSlider').addEventListener('input', (e) => {
+          document.getElementById('onboardPeriodVal').textContent = `${e.target.value} дн.`;
+        });
+
+        document.getElementById('finishOnboardingBtn').addEventListener('click', () => {
+          const inputVal = document.getElementById('onboardDateInput').value;
+          if (this.draftPastDates.length === 0 && inputVal) {
+            this.draftPastDates.push(inputVal);
+          }
+          if (this.draftPastDates.length > 0) {
+            this.state.settings.pastCycleStarts = [...new Set(this.draftPastDates)].sort();
+          }
+          this.state.settings.periodLength = Number(document.getElementById('onboardPeriodSlider').value) || 5;
+          this.state.isFirstLaunch = false;
+          this.saveStorage();
+          document.getElementById('onboardingModal').classList.add('hidden');
+          this.renderAll();
+          this.showToast(`Автоцикл: ${this.getEffectiveCycleLength()} дн.`);
+        });
+
+        document.getElementById('settingsAddCycleBtn').addEventListener('click', () => {
+          const val = document.getElementById('settingsNewCycleDate').value;
+          if (!val) return;
+          const set = new Set(this.state.settings.pastCycleStarts || []);
+          set.add(val);
+          this.state.settings.pastCycleStarts = [...set].sort();
+          this.saveStorage();
+          this.renderAll();
+          this.showToast('Дата цикла добавлена');
+        });
+
+        document.getElementById('periodLengthSlider').addEventListener('input', (e) => {
+          const v = Number(e.target.value);
+          document.getElementById('periodLengthVal').textContent = `${v} дн.`;
+          this.state.settings.periodLength = v;
+          this.saveStorage();
+          this.renderTodayTab();
+          this.renderCalendar();
+          this.renderAnalytics();
+        });
+
+        document.getElementById('bgDimSlider').addEventListener('input', (e) => {
+          const v = Number(e.target.value);
+          document.getElementById('bgDimVal').textContent = `${v}%`;
+          this.state.bgBrightness = v;
+          this.applyBgBrightness();
+          this.saveStorage();
+        });
+
+        document.getElementById('reopenOnboardingBtn').addEventListener('click', () => {
+          this.openOnboarding();
+        });
+
+        document.getElementById('askDoctorBtn').addEventListener('click', () => {
+          const q = document.getElementById('doctorQuestionInput').value;
+          this.answerDoctorQuestion(q);
+        });
+
+        document.querySelectorAll('.nav-btn').forEach((btn) => {
+          btn.addEventListener('click', () => this.switchTab(btn.dataset.tab));
+        });
+
+        document.getElementById('nextQuoteBtn').addEventListener('click', () => {
+          this.state.quoteIndex += 1;
+          this.saveStorage();
+          this.renderQuote();
+        });
+
+        document.getElementById('intimacyPlusBtn').addEventListener('click', () => {
+          const key = this.state.selectedDate;
+          this.mutateDayLog(key, (cur) => ({
+            ...cur,
+            intimacyCount: cur.intimacyCount + 1
+          }), 'Добавлена отметка близости');
+        });
+
+        document.getElementById('intimacyMinusBtn').addEventListener('click', () => {
+          const key = this.state.selectedDate;
+          this.mutateDayLog(key, (cur) => ({
+            ...cur,
+            intimacyCount: Math.max(0, cur.intimacyCount - 1)
+          }), 'Отметка близости уменьшена');
+        });
+
+        document.getElementById('saveDayBtn').addEventListener('click', () => {
+          const noteVal = document.getElementById('dayNoteInput').value.trim();
+          this.mutateDayLog(this.state.selectedDate, (cur) => ({
+            ...cur,
+            note: noteVal
+          }), 'Запись сохранена');
+        });
+
+        document.getElementById('prevMonthBtn').addEventListener('click', () => {
+          const cur = parseDateKey(this.state.calMonthDate);
+          cur.setMonth(cur.getMonth() - 1);
+          this.state.calMonthDate = toDateKey(cur);
+          this.saveStorage();
+          this.renderCalendar();
+        });
+
+        document.getElementById('nextMonthBtn').addEventListener('click', () => {
+          const cur = parseDateKey(this.state.calMonthDate);
+          cur.setMonth(cur.getMonth() + 1);
+          this.state.calMonthDate = toDateKey(cur);
+          this.saveStorage();
+          this.renderCalendar();
+        });
+
+        document.getElementById('togglePeriodBtn').addEventListener('click', () => {
+          const key = this.state.selectedDate;
+          const currentlyPeriod = this.isPeriodDay(key);
+          this.state.manualPeriodDays[key] = !currentlyPeriod;
+          this.saveStorage();
+          this.renderAll();
+          this.showToast(!currentlyPeriod ? 'День отмечен' : 'Отметка снята');
+        });
+
+        document.getElementById('calIntimacyPlus').addEventListener('click', () => {
+          const key = this.state.selectedDate;
+          this.mutateDayLog(key, (cur) => ({
+            ...cur,
+            intimacyCount: cur.intimacyCount + 1
+          }), 'Близость добавлена');
+        });
+
+        document.getElementById('calIntimacyMinus').addEventListener('click', () => {
+          const key = this.state.selectedDate;
+          this.mutateDayLog(key, (cur) => ({
+            ...cur,
+            intimacyCount: Math.max(0, cur.intimacyCount - 1)
+          }), 'Близость уменьшена');
+        });
+
+        document.getElementById('jumpToDayBtn').addEventListener('click', () => {
+          this.switchTab('today');
+        });
+
+        document.getElementById('saveSettingsBtn').addEventListener('click', () => {
+          this.state.settings.periodLength = Number(document.getElementById('periodLengthSlider').value) || 5;
+          this.state.bgBrightness = Number(document.getElementById('bgDimSlider').value) || 0;
+          this.saveStorage();
+          this.renderAll();
+          this.showToast('Настройки сохранены');
+        });
+
+        document.getElementById('exportJsonBtn').addEventListener('click', () => {
+          const blob = new Blob([JSON.stringify(this.state, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `forks-moon-${toDateKey(new Date())}.json`;
+          a.click();
+          URL.revokeObjectURL(url);
+          this.showToast('Резервная копия выгружена');
+        });
+
+        document.getElementById('resetDemoBtn').addEventListener('click', () => {
+          this.state = createInitialState();
+          this.saveStorage();
+          this.renderAll();
+          this.openOnboarding();
+          this.showToast('Данные сброшены');
+        });
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => app.init());
+  </script>
+</body>
+</html>
